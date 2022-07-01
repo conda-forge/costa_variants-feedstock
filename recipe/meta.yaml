@@ -20,6 +20,7 @@ outputs:
       build:
         - {{ compiler('cxx') }}
         - cmake
+        - make
       host:
         - {{ mpi }}
         - libgomp      # [linux]
@@ -42,6 +43,7 @@ outputs:
       build:
         - {{ compiler('cxx') }}
         - cmake
+        - make
       host:
         - {{ mpi }}
         - scalapack
