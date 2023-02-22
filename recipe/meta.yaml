@@ -1,5 +1,5 @@
 {% set name = "costa" %}
-{% set version = "2.0" %}
+{% set version = "2.2" %}
 
 package:
   name: {{ name }}_variants
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://github.com/eth-cscs/COSTA/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 0692a9c962282899894ccdbc7006216c835473a6999f1080c10bf94f23094521
+  sha256: 3e7333f012af76ec3508276ea90800313f6136504667021fe229e710bf6acdc7
 
 build:
   number: 0
-  skip: True  # [win]
+  skip: true  # [win]
 
 outputs:
   - name: costa
@@ -27,7 +27,7 @@ outputs:
         - pkgconfig    # [osx]
       run:
         - {{ mpi }}
-    
+
     test:
       commands:
         - test -f "${PREFIX}/lib64/libcosta.a"  # [linux]
@@ -51,7 +51,7 @@ outputs:
       run:
         - {{ mpi }}
         - scalapack
-    
+
     test:
       commands:
         - test -f "${PREFIX}/lib64/libcosta.a"  # [linux]
