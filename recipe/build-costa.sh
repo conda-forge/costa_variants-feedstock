@@ -16,9 +16,6 @@ cmake \
 
 make -j${CPU_COUNT}
 
-# workaround to run Open MPI in docker container
-export OMPI_MCA_plm_rsh_agent=sh
-
 # run tests
 make test
 
