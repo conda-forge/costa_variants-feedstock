@@ -21,11 +21,12 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
         - cmake
+        - make
+        - pkg-config
       host:
         - {{ mpi }}
         - libgomp      # [linux]
         - llvm-openmp  # [osx]
-        - pkgconfig    # [osx]
       run:
         - {{ mpi }}
     
