@@ -12,7 +12,11 @@ cmake \
     -DCMAKE_INSTALL_PREFIX=$PREFIX \
     -DCOSTA_SCALAPACK=$COSTA_SCALAPACK \
     -DCOSTA_WITH_TESTS=ON \
-    $CMAKE_ARG
+    ${CMAKE_ARGS} \
+  || (
+      cat CMakeFiles/CMakeConfigureLog.yaml
+      exit 1
+    )
 
 make -j${CPU_COUNT}
 
