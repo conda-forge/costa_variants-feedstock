@@ -45,12 +45,13 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
         - cmake
+        - make
+        - pkg-config
       host:
         - {{ mpi }}
         - scalapack
         - libgomp      # [linux]
         - llvm-openmp  # [osx]
-        - pkgconfig    # [osx]
       run:
         - {{ mpi }}
         - scalapack
