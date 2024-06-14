@@ -12,12 +12,13 @@ cmake \
     -DCMAKE_INSTALL_PREFIX=$PREFIX \
     -DCOSTA_SCALAPACK=$COSTA_SCALAPACK \
     -DCOSTA_WITH_TESTS=ON \
-    $CMAKE_ARG
+    ${CMAKE_ARGS} \
+  || (
+      cat CMakeFiles/CMakeConfigureLog.yaml
+      exit 1
+    )
 
 make -j${CPU_COUNT}
-
-# workaround to run Open MPI in docker container
-export OMPI_MCA_plm_rsh_agent=sh
 
 # run tests
 make test
