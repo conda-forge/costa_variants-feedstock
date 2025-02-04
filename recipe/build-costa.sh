@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -xe
+
 if [[ "$PKG_NAME" == "costa-scalapack" ]]; then
   COSTA_SCALAPACK=CUSTOM
 else
