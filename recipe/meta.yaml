@@ -78,5 +78,6 @@ about:
 
 extra:
   recipe-maintainers:
+    - username
     - kabicm
     - ltalirz
