@@ -11,13 +11,21 @@ Home: https://github.com/eth-cscs/COSTA
 
 Package license: BSD-3-Clause
 
-Summary: Communication-Optimal Shuffle & Transpose Algorithm
+Summary: Communication-Optimal Shuffle & Transpose Algorithm (COSTA) with and without ScaLAPACK wrappers for drop-in replacement
 
 Development: https://github.com/eth-cscs/COSTA
 
 Documentation: https://github.com/eth-cscs/COSTA
 
-COSTA is a communication-optimal, highly-optimised algorithm for data redistribution accross multiple processors, using MPI and OpenMP and offering the possibility to transpose and scale some or all data. It implements scalapack routines for matrix scale & transpose operations (sub(C) = alpha * sub(A)^T + beta * C, provided by pxtran(u)) and data redistribution (sub(C) = sub(A), provided by pxgemr2d) and outperforms other scalapack implementations by orders of magnitude in some cases. Unlike previous redistribution algorithms, COSTA will also propose the relabelling of MPI ranks that minimizes the data reshuffling cost, leaving to users to decide if they want to use it. This way, if the initial and the target data distributions differ up to a rank permutation, COSTA will perform no communication, whereas other algorithms will reshuffle all the data. Thanks to its optimizations, significant speedups will be achieved even if the proposed rank relabelling is not used.
+COSTA is a communication-optimal, highly-optimised algorithm for data redistribution accross multiple processors,
+using MPI and OpenMP and offering the possibility to transpose and scale some or all data. It implements
+ScaLAPACK routines for matrix scale & transpose operations (sub(C) = alpha * sub(A)^T + beta * C, provided by pxtran(u))
+and data redistribution (sub(C) = sub(A), provided by pxgemr2d) and outperforms other ScaLAPACK implementations by orders 
+of magnitude in some cases. Unlike previous redistribution algorithms, COSTA will also propose the relabelling of MPI ranks
+that minimizes the data reshuffling cost, leaving to users to decide if they want to use it. This way, if the initial and
+the target data distributions differ up to a rank permutation, COSTA will perform no communication, whereas other algorithms
+will reshuffle all the data. Thanks to its optimizations, significant speedups will be achieved even if the proposed rank
+relabelling is not used.
 
 
 About costa
@@ -36,7 +44,7 @@ About costa-scalapack
 
 Package license: 
 
-Summary: COSTA with scalapack wrappers for drop-in replacement
+Summary: COSTA with ScaLAPACK wrappers for drop-in replacement
 
 Current build status
 ====================
@@ -70,6 +78,20 @@ Current build status
                 </a>
               </td>
             </tr><tr>
+              <td>linux_aarch64_mpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=14113&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/costa_variants-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_mpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64_mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=14113&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/costa_variants-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
               <td>osx_64_mpimpich</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=14113&branchName=main">
@@ -81,6 +103,20 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=14113&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/costa_variants-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_mpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=14113&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/costa_variants-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_mpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=14113&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/costa_variants-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr>
@@ -168,12 +204,12 @@ it is possible to build and upload installable packages to the
 [conda-forge](https://anaconda.org/conda-forge) [anaconda.org](https://anaconda.org/)
 channel for Linux, Windows and OSX respectively.
 
-To manage the continuous integration and simplify feedstock maintenance
+To manage the continuous integration and simplify feedstock maintenance,
 [conda-smithy](https://github.com/conda-forge/conda-smithy) has been developed.
 Using the ``conda-forge.yml`` within this repository, it is possible to re-render all of
 this feedstock's supporting files (e.g. the CI configuration files) with ``conda smithy rerender``.
 
-For more information please check the [conda-forge documentation](https://conda-forge.org/docs/).
+For more information, please check the [conda-forge documentation](https://conda-forge.org/docs/).
 
 Terminology
 ===========
@@ -200,7 +236,7 @@ merged, the recipe will be re-built and uploaded automatically to the
 everybody to install and use from the `conda-forge` channel.
 Note that all branches in the conda-forge/costa_variants-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
-on branches in forks and branches in the main repository should only be used to
+on branches in forks, and branches in the main repository should only be used to
 build distinct package versions.
 
 In order to produce a uniquely identifiable distribution:
@@ -215,4 +251,5 @@ Feedstock Maintainers
 
 * [@kabicm](https://github.com/kabicm/)
 * [@ltalirz](https://github.com/ltalirz/)
+* [@mkrack](https://github.com/mkrack/)
 
