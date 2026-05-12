@@ -7,15 +7,14 @@ else
   COSTA_SCALAPACK="OFF"
 fi
 
-export CC="mpicc"
-export CXX="mpicxx"
-
 # Run tests only if no cross-compiling is performed
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" != "1" ]]; then
   cmake -B build_with_tests -S . \
     ${CMAKE_ARGS} \
     -GNinja \
-    -DBUILD_SHARED_LIBS="OFF" \
+    -DBUILD_SHARED_LIBS="ON" \
+    -DCMAKE_CXX_FLAGS="${CXXFLAGS} -fopenmp" \
+    -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
     -DCOSTA_SCALAPACK="${COSTA_SCALAPACK}" \
     -DCOSTA_WITH_TESTS="ON"
   cmake --build build_with_tests --parallel "${CPU_COUNT}"
@@ -26,7 +25,9 @@ fi
 cmake -B build -S . \
     ${CMAKE_ARGS} \
     -GNinja \
-    -DBUILD_SHARED_LIBS="OFF" \
+    -DBUILD_SHARED_LIBS="ON" \
+    -DCMAKE_CXX_FLAGS="${CXXFLAGS} -fopenmp" \
+    -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
     -DCOSTA_SCALAPACK="${COSTA_SCALAPACK}" \
     -DCOSTA_WITH_TESTS="OFF"
 cmake --build build --parallel "${CPU_COUNT}"
