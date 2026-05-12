@@ -1,7 +1,7 @@
 {% set name = "costa" %}
 {% set version = "2.3.2" %}
 
-{% set build = 1 %}
+{% set build = 2 %}
 
 {% set mpi_prefix = "mpi_" + mpi %}
 
@@ -23,7 +23,7 @@ outputs:
     build:
       string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}
       run_exports:
-        - {{ pin_subpackage("costa", max_pin="x.x") }}
+        - {{ pin_subpackage("costa", max_pin="x") }}
     requirements:
       build:
         - {{ compiler("c") }}
@@ -35,11 +35,13 @@ outputs:
         - pkg-config
       host:
         - {{ mpi }}
+        - _openmp_mutex
       run:
         - {{ mpi }}
+        - _openmp_mutex
     test:
       commands:
-        - test -f "${PREFIX}/lib/libcosta.a"
+        - test -f "${PREFIX}/lib/libcosta${SHLIB_EXT}"
     about:
       summary: Communication-Optimal Shuffle & Transpose Algorithm (COSTA)
   - name: costa-scalapack
@@ -47,7 +49,7 @@ outputs:
     build:
       string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}
       run_exports:
-        - {{ pin_subpackage("costa-scalapack", max_pin="x.x") }}
+        - {{ pin_subpackage("costa-scalapack", max_pin="x") }}
     requirements:
       build:
         - {{ compiler("c") }}
@@ -59,19 +61,18 @@ outputs:
         - pkg-config
       host:
         - {{ mpi }}
-        - libblas
-        - liblapack
+        - _openmp_mutex
+        - "openblas >=0.3.30 *openmp_*"
         - scalapack >=2.2
       run:
         - {{ mpi }}
-        - libblas
-        - liblapack
-        - scalapack >=2.2
+        - _openmp_mutex
+        - "openblas >=0.3.30 *openmp_*"
     test:
       commands:
-        - test -f "${PREFIX}/lib/libcosta.a"
-        - test -f "${PREFIX}/lib/libcosta_scalapack.a"
-        - test -f "${PREFIX}/lib/libcosta_prefixed_scalapack.a"
+        - test -f "${PREFIX}/lib/libcosta${SHLIB_EXT}"
+        - test -f "${PREFIX}/lib/libcosta_scalapack${SHLIB_EXT}"
+        - test -f "${PREFIX}/lib/libcosta_prefixed_scalapack${SHLIB_EXT}"
     about:
       summary: COSTA with ScaLAPACK wrappers for drop-in replacement
 
